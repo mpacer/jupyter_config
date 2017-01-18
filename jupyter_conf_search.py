@@ -1,6 +1,8 @@
 import jupyter_core.paths as jpaths
 import glob
 import os
+import sys
+
 def valid_conf_file(file_name):
 # replace with canonical config validation checker
     if not os.path.isfile(file_name):
@@ -51,5 +53,5 @@ def print_indexed_content(file='', search_term=''):
 
 
 if __name__ == "__main__":
-    search_jupyter_paths("")
+    search_jupyter_paths(sys.argv[1])
 
