@@ -2,7 +2,7 @@
 
 """
 
-__version__="0.3"
+__version__="0.4.1"
 
 from .jupyter_conf_search import main
 
