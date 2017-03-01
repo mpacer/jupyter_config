@@ -1,7 +1,19 @@
-In order to use this for now you need to use it as a module that you pass in arguments to with 
+In order to use this 
 
-    python -m jupyter_conf_search "your_search_term"
+    pip install jupyter_conf_search 
 
-on the command line.
+Which is then executed as 
 
-© Mike Pacer 2017-W05-6-0213
+    jupyter_conf_search "your_search_term"
+
+on the command line to search for "`your_search_term`".
+
+If you pass just 
+
+    `juptyer_conf_search`
+
+it will return the total list of configuration files that it found relative to
+the directory that you are running the command from (not just the directories,
+which you can find using `jupyter --paths` beneath `config:`). 
+
+© Mike Pacer 2017-W09-3-1543
