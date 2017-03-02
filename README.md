@@ -10,7 +10,7 @@ on the command line to search for "`your_search_term`".
 
 If you pass just 
 
-    `juptyer_conf_search`
+    jupyter_conf_search
 
 it will return the total list of configuration files that it found relative to
 the directory that you are running the command from (not just the directories,
