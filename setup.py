@@ -6,9 +6,9 @@ setup(
     name='jupyter_conf_search',
     packages=['jupyter_conf_search'],
     version=__version__,
-    author='Mike Pacer',
+    author='M Pacer',
     author_email='mpacer@berkeley.edu',
-    url='https://github.com/michaelpacer/jupyter_conf_search',
+    url='https://github.com/mpacer/jupyter_conf_search',
     install_requires=[
         "jupyter"
         ]
