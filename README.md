@@ -16,4 +16,4 @@ it will return the total list of configuration files that it found relative to
 the directory that you are running the command from (not just the directories,
 which you can find using `jupyter --paths` beneath `config:`). 
 
-© Mike Pacer 2017-W09-3-1543
+© M Pacer 
