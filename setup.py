@@ -1,15 +1,25 @@
 from setuptools import setup
-from jupyter_conf_search import __version__
+import os
 
+here = os.path.abspath(os.path.dirname(__file__))
+name = 'jupyter_config'
+
+version_ns = {}
+with open(os.path.join(here, name, '_version.py')) as f:
+    exec(f.read(), {}, version_ns)
 
 setup(
-    name='jupyter_conf_search',
-    packages=['jupyter_conf_search'],
-    version=__version__,
+    name='jupyter_config',
+    packages=['jupyter_config'],
+    version=version_ns['__version__'],
     author='M Pacer',
     author_email='mpacer@berkeley.edu',
-    url='https://github.com/mpacer/jupyter_conf_search',
+    url='https://github.com/mpacer/jupyter_config',
     install_requires=[
-        "jupyter"
-        ]
+        "jupyter_core"
+        ],
+    entry_points={
+        'console_scripts':[
+            'jupyter-config = jupyter_config.configapp:main'
+        ]}
 )
