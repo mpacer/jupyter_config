@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit"]
-build-backend = "flit.buildapi"
+requires = ["flit", "setuptools", "wheel"]
+# build-backend = "flit.buildapi"
 
 [tool.flit.metadata]
 module = "jupyter_config"
