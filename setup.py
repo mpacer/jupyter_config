@@ -8,6 +8,11 @@ version_ns = {}
 with open(os.path.join(here, name, '_version.py')) as f:
     exec(f.read(), {}, version_ns)
 
+extras_require = {
+    'test': ['pytest']
+}
+extras_require['dev'] = ['check_manifest'] + extras_require['test']
+
 setup(
     name='jupyter_config',
     packages=['jupyter_config'],
