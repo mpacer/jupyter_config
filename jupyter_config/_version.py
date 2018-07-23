@@ -1,3 +1,5 @@
+"""This provides the version number for the library"""
+
 version_info = (0, 4, 5)
 pre_info = ''
 dev_info = 'dev'
@@ -58,6 +60,5 @@ def create_valid_version(release_info, epoch=None, pre_input='', dev_input=''):
         return out_version
     else:
         raise ValueError(pep440_err)
-
 
 __version__ = create_valid_version(version_info, pre_input=pre_info, dev_input=dev_info) 
