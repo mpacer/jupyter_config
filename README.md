@@ -46,3 +46,9 @@ To do so run:
 pytest --pyargs jupyter_config
 ```
 
+## Releasing jupyter_config
+
+Before you release, you should make sure to run `check-manifest` to ensure your `MANIFEST.in`
+is up to date.
+
+More detailed release instructions are en route per issue #1.
