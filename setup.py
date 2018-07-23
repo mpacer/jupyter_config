@@ -26,5 +26,6 @@ setup(
     entry_points={
         'console_scripts':[
             'jupyter-config = jupyter_config.configapp:main'
-        ]}
+        ]},
+    extras_require=extras_require,
 )
