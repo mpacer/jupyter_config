@@ -30,22 +30,9 @@ class JupyterConfigApp(JupyterApp):
         super(JupyterConfigApp, self).initialize(argv)
         search_jupyter_paths(self.extra_args)
         
-    # @classmethod
-    # def launch_instance(cls, argv=None, **kwargs):
-    #     import ipdb; ipdb.set_trace()
-    #     super(JupyterConfigApp, cls).launch_instance(argv=argv, **kwargs)
         
     
     
-    # @classmethod
-    # def main(cls):
-    #     if len(sys.argv)==1:
-    #         search_jupyter_paths()
-    #     elif len(sys.argv)==2:
-    #         search_jupyter_paths(sys.argv[1])
-    #     else:
-    #         raise RuntimeError("You can only pass in a single string at this time.")
-
 def valid_conf_file(file_name):
 # replace with canonical config validation checker
     return (os.path.isfile(file_name) 
