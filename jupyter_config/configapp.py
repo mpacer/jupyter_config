@@ -48,20 +48,22 @@ class JupyterConfigApp(JupyterApp):
 
 def valid_conf_file(file_name):
 # replace with canonical config validation checker
-    if not os.path.isfile(file_name):
-        return False
-    if os.path.splitext(file_name)[1]=='.py':
-        return True
-    if os.path.splitext(file_name)[1]=='.json':
-        return True
+    return (os.path.isfile(file_name) 
+            and os.path.splitext(file_name)[1] in ['.py', '.json'])
     
 
 canonical_names_regex = re.compile(r"jupyter_(\w*_|)config")
 
 def valid_local_conf_file(file_path):
-    file_name = os.path.splitext(os.path.split(file_path)[1])[0]
-    return valid_conf_file(file_path) and canonical_names_regex.match(file_name)
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
+    return (valid_conf_file(file_path) 
+            and canonical_names_regex.match(file_name))
     
+def valid_gen_conf_file(file_path, name_regex):
+    file_name = os.path.basename(file_path)
+    return (valid_conf_file(file_path) 
+            and name_regex.match(file_name))
+        
 def search_jupyter_paths(search_term=''):
     
     if search_term is not '' and isinstance(search_term, list) and len(search_term)>0:
