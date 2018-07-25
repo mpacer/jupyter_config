@@ -2,8 +2,10 @@ import glob
 import os
 import sys
 import re 
+import itertools
 
 from jupyter_core.application import JupyterApp, base_aliases, base_flags
+from notebook.nbextensions import NBCONFIG_SECTIONS
 import jupyter_core.paths as jpaths
 from traitlets.config import catch_config_error
 
@@ -30,8 +32,28 @@ class JupyterConfigApp(JupyterApp):
         super(JupyterConfigApp, self).initialize(argv)
         search_jupyter_paths(self.extra_args)
         
-        
+
+def generate_potential_paths():
+    """Generate all of the potential paths available in the current context.
     
+    
+    """
+    base_conf_paths = list(filter(os.path.isdir, jpaths.jupyter_config_path()[::-1]))
+        
+    nbconfig_base_paths = list(filter(os.path.isdir, (os.path.join(d, 'nbconfig') 
+                                                      for d in base_conf_paths)))
+    conf_d_paths = list(filter(os.path.isdir, (os.path.join(d, 'jupyter_notebook_config.d') 
+                                                            for d in base_conf_paths)))
+    for d in nbconfig_base_paths:
+        config_path_segment = list(filter(os.path.isdir, (os.path.join(d, section+'.d') 
+                                                          for section in NBCONFIG_SECTIONS)))
+        conf_d_paths.extend(config_path_segment)
+    
+    
+    return {'base_conf_paths': base_conf_paths,
+            'nbconfig_base_paths': nbconfig_base_paths,
+            'conf_d_paths': conf_d_paths,
+            }
     
 def valid_conf_file(file_name):
 # replace with canonical config validation checker
