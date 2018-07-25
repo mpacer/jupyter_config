@@ -78,26 +78,52 @@ def search_jupyter_paths(search_term=''):
     if search_term is not '' and isinstance(search_term, list) and len(search_term)>0:
         search_term = search_term[0]
          
-    # print(search_term)
-    conf_path_list = []
-    for dir in jpaths.jupyter_config_path():
-        conf_path_list.extend(glob.glob(dir+"/**", recursive=True))
-        
-    conf_file_list = [f for f in conf_path_list if valid_conf_file(f)]
-    local_path_list = glob.glob(os.getcwd()+"/**", recursive=True)
     
-    conf_file_list.extend([f for f in local_path_list if valid_local_conf_file(f)])
+    potential_paths = generate_potential_paths()
+    
+    base_conf_re = re.compile(r"jupyter_(\w*|)\.(json|py)")
+    base_conf_file_list = [f for d in potential_paths['base_conf_paths']
+                           for f in glob.iglob(d+"/*")
+                           if valid_gen_conf_file(f, base_conf_re)]
+    print(base_conf_file_list)
+    
+    nbconfig_pattern = r"({})\.json".format("|".join(n for n in NBCONFIG_SECTIONS))
+    nbconfig_re = re.compile(nbconfig_pattern)
+    nbconfig_file_list = [f for d in potential_paths['nbconfig_base_paths']
+                          for f in glob.iglob(d+"/*")
+                          if valid_gen_conf_file(f, nbconfig_re)]
+
+    print(nbconfig_file_list)
+
+    confd_re= re.compile(r"\w*\.json")
+    confd_file_list = [f for d in potential_paths['conf_d_paths']
+                       for f in glob.iglob(d+"/*")
+                       if valid_gen_conf_file(f, confd_re)]
+
+    print(confd_file_list)
+    # nbconf_d_file_list = []
+    # for dir in jpaths.jupyter_config_path():
+    #     base_conf_path_list.extend(glob.glob(dir+"/*"))
+        
+    # for dir in jpaths.jupyter_config_path():
+    #     base_conf_path_list.extend(glob.glob(dir+"/*"))
+     
+     
+    # conf_file_list = [f for f in conf_path_list if valid_conf_file(f)]
+    # local_path_list = glob.glob(os.getcwd()+"/*")
+    
+    # conf_file_list.extend([f for f in local_path_list if valid_local_conf_file(f)])
     
     # go through files,
     # if search term found in file
     # print name, line_no, content
-    conf_file_list.reverse()
-    for file_name in conf_file_list:
-        if len(search_term)>0:
-            print_indexed_content(file_name=file_name, search_term=search_term)
-        else:
-            print(file_name)
-        
+    # conf_file_list.reverse()
+    # for file_name in conf_file_list:
+    #     if len(search_term)>0:
+    #         print_indexed_content(file_name=file_name, search_term=search_term)
+    #     else:
+    #         print(file_name)
+    
 def print_indexed_content(file_name='', search_term=''):
     with open(file_name,"r") as f:
         if search_term in f.read():
