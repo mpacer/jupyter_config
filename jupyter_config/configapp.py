@@ -88,7 +88,7 @@ def search_jupyter_paths(search_term=''):
     base_conf_file_list = [f for d in potential_paths['base_conf_paths']
                            for f in glob.iglob(d+"/*")
                            if valid_gen_conf_file(f, base_conf_re)]
-    print(base_conf_file_list)
+    
     
     nbconfig_pattern = r"({})\.json".format("|".join(n for n in NBCONFIG_SECTIONS))
     nbconfig_re = re.compile(nbconfig_pattern)
@@ -96,14 +96,12 @@ def search_jupyter_paths(search_term=''):
                           for f in glob.iglob(d+"/*")
                           if valid_gen_conf_file(f, nbconfig_re)]
 
-    print(nbconfig_file_list)
 
     confd_re= re.compile(r"\w*\.json")
     confd_file_list = [f for d in potential_paths['conf_d_paths']
-                       for f in glob.iglob(d+"/*")
+                       for f in sorted(glob.iglob(d+"/*"), reverse=True)
                        if valid_gen_conf_file(f, confd_re)]
 
-    print(confd_file_list)
     conf_file_list = list(itertools.chain(local_conf_file_list,
                                           base_conf_file_list,
                                           nbconfig_file_list,
