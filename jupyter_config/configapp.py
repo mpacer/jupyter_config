@@ -81,7 +81,10 @@ def search_jupyter_paths(search_term=''):
     
     potential_paths = generate_potential_paths()
     
-    base_conf_re = re.compile(r"jupyter_(\w*|)\.(json|py)")
+    base_conf_re = re.compile(r"jupyter_(\w*_|)config\.(json|py)")
+    local_conf_file_list = [f for f in glob.iglob("*")
+                           if valid_gen_conf_file(f, base_conf_re)]
+    
     base_conf_file_list = [f for d in potential_paths['base_conf_paths']
                            for f in glob.iglob(d+"/*")
                            if valid_gen_conf_file(f, base_conf_re)]
