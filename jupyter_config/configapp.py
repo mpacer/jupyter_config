@@ -38,7 +38,7 @@ def generate_potential_paths():
     
     
     """
-    base_conf_paths = list(filter(os.path.isdir, jpaths.jupyter_config_path()[::-1]))
+    base_conf_paths = list(filter(os.path.isdir, jpaths.jupyter_config_path()))
         
     nbconfig_base_paths = list(filter(os.path.isdir, (os.path.join(d, 'nbconfig') 
                                                       for d in base_conf_paths)))
@@ -104,28 +104,19 @@ def search_jupyter_paths(search_term=''):
                        if valid_gen_conf_file(f, confd_re)]
 
     print(confd_file_list)
-    # nbconf_d_file_list = []
-    # for dir in jpaths.jupyter_config_path():
-    #     base_conf_path_list.extend(glob.glob(dir+"/*"))
-        
-    # for dir in jpaths.jupyter_config_path():
-    #     base_conf_path_list.extend(glob.glob(dir+"/*"))
-     
-     
-    # conf_file_list = [f for f in conf_path_list if valid_conf_file(f)]
-    # local_path_list = glob.glob(os.getcwd()+"/*")
-    
-    # conf_file_list.extend([f for f in local_path_list if valid_local_conf_file(f)])
+    conf_file_list = list(itertools.chain(local_conf_file_list,
+                                          base_conf_file_list,
+                                          nbconfig_file_list,
+                                          confd_file_list ))
     
     # go through files,
     # if search term found in file
     # print name, line_no, content
-    # conf_file_list.reverse()
-    # for file_name in conf_file_list:
-    #     if len(search_term)>0:
-    #         print_indexed_content(file_name=file_name, search_term=search_term)
-    #     else:
-    #         print(file_name)
+    for file_name in conf_file_list:
+        if len(search_term)>0:
+            print_indexed_content(file_name=file_name, search_term=search_term)
+        else:
+            print(file_name)
     
 def print_indexed_content(file_name='', search_term=''):
     with open(file_name,"r") as f:
