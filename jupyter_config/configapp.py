@@ -48,6 +48,8 @@ class JupyterConfigApp(JupyterApp):
     @catch_config_error
     def initialize(self, argv=None):
         super(JupyterConfigApp, self).initialize(argv)
+        if not self._dispatching:
+            self.print_help(False)
 
 def generate_potential_paths():
     """Generate all of the potential paths available in the current context.
