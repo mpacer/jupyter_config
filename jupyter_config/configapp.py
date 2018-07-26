@@ -15,6 +15,24 @@ config_aliases.update(base_aliases)
 config_flags = {}
 config_flags.update(base_flags)
 
+class JupyterConfigListApp(JupyterApp):
+    description = """List the jupyter configuration files that will be found 
+if you run a JupyterApp in the current context."""
+    
+    @catch_config_error
+    def initialize(self, argv=None):
+        super(JupyterConfigListApp, self).initialize(argv)
+        search_jupyter_paths()
+
+class JupyterConfigSearchApp(JupyterApp):
+    description = """Search for a provided term in the jupyter configuration files 
+that will be found if you run a JupyterApp in the current context."""
+    
+    @catch_config_error
+    def initialize(self, argv=None):
+        super(JupyterConfigSearchApp, self).initialize(argv)
+        search_jupyter_paths(self.extra_args)
+
 class JupyterConfigApp(JupyterApp):
     name = "jupyter-config"
     description = "A Jupyter Application for searching in and finding config files."
@@ -22,16 +40,14 @@ class JupyterConfigApp(JupyterApp):
     # flags = config_flags
     
     
-    # subcommands = dict(
-    #     list=(JupyterConfigListApp, JupyterConfigListApp.description.splitlines()[0]),
-    #     search=(JupyterConfigSearchApp, JupyterConfigSearchApp.description.splitlines()[0]),
-    # )
+    subcommands = dict(
+        list=(JupyterConfigListApp, JupyterConfigListApp.description),
+        search=(JupyterConfigSearchApp, JupyterConfigSearchApp.description),
+    )
     
     @catch_config_error
     def initialize(self, argv=None):
         super(JupyterConfigApp, self).initialize(argv)
-        search_jupyter_paths(self.extra_args)
-        
 
 def generate_potential_paths():
     """Generate all of the potential paths available in the current context.
