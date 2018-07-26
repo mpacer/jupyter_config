@@ -4,13 +4,13 @@ In order to use this
 
 Which is then executed as
 
-    jupyter config "your_search_term"
+    jupyter config search "your_search_term"
 
 on the command line to search for "`your_search_term`".
 
-If you pass just
+If you pass 
 
-    jupyter config
+    jupyter config list
 
 it will return the total list of configuration files that it found relative to
 the directory that you are running the command from (not just the directories,
