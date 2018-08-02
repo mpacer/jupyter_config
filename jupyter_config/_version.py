@@ -1,8 +1,8 @@
 """This provides the version number for the library"""
 
-version_info = (0, 4, 5)
+version_info = (0, 5, 0)
 pre_info = ''
-dev_info = 'dev'
+dev_info = ''
 
 def create_valid_version(release_info, epoch=None, pre_input='', dev_input=''):
     '''
