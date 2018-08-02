@@ -9,6 +9,8 @@ from notebook.nbextensions import NBCONFIG_SECTIONS
 import jupyter_core.paths as jpaths
 from traitlets.config import catch_config_error
 
+from ._version import __version__
+
 config_aliases = {}
 config_aliases.update(base_aliases)
 
@@ -38,6 +40,7 @@ class JupyterConfigApp(JupyterApp):
     description = "A Jupyter Application for searching in and finding config files."
     # aliases = config_aliases
     # flags = config_flags
+    version = __version__
     
     
     subcommands = dict(
