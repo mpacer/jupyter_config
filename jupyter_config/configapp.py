@@ -18,21 +18,19 @@ config_flags = {}
 config_flags.update(base_flags)
 
 class JupyterConfigListApp(JupyterApp):
+    name = "jupyter-config-list"
     description = """List the jupyter configuration files that will be found 
 if you run a JupyterApp in the current context."""
     
-    @catch_config_error
-    def initialize(self, argv=None):
-        super(JupyterConfigListApp, self).initialize(argv)
+    def start(self):
         search_jupyter_paths()
 
 class JupyterConfigSearchApp(JupyterApp):
+    name = "jupyter-config-search"
     description = """Search for a provided term in the jupyter configuration files 
 that will be found if you run a JupyterApp in the current context."""
     
-    @catch_config_error
-    def initialize(self, argv=None):
-        super(JupyterConfigSearchApp, self).initialize(argv)
+    def start(self):
         search_jupyter_paths(self.extra_args)
 
 class JupyterConfigApp(JupyterApp):
@@ -41,7 +39,6 @@ class JupyterConfigApp(JupyterApp):
     # aliases = config_aliases
     # flags = config_flags
     version = __version__
-    
     
     subcommands = dict(
         list=(JupyterConfigListApp, JupyterConfigListApp.description),
