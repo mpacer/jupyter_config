@@ -1,6 +1,6 @@
 """This provides the version number for the library"""
 
-version_info = (0, 6, 0)
+version_info = (0, 6, 1)
 pre_info = ''
 dev_info = ''
 
