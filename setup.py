@@ -21,7 +21,8 @@ setup(
     author_email='mpacer@berkeley.edu',
     url='https://github.com/mpacer/jupyter_config',
     install_requires=[
-        "jupyter_core"
+        "jupyter_core",
+        "notebook>=5.3"
         ],
     entry_points={
         'console_scripts':[
