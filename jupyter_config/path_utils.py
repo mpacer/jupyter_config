@@ -65,4 +65,8 @@ def search_jupyter_paths():
                                         confd_file_list)
     for filename in filename_iterator:
         yield filename
+
     
+def resolve_filepath(file_name):
+    real_file_name = " -> {}".format(os.path.realpath(file_name)) if os.path.islink(file_name) else ""
+    return "{}{}".format(file_name, real_file_name) 

@@ -1,10 +1,11 @@
 import re
+import os
 
 from jupyter_core.application import JupyterApp, base_aliases, base_flags
 from traitlets.config import catch_config_error
 
 from ._version import __version__
-from .path_utils import search_jupyter_paths
+from .path_utils import search_jupyter_paths, resolve_filepath
 
 config_aliases = {}
 config_aliases.update(base_aliases)
@@ -19,7 +20,8 @@ if you run a JupyterApp in the current context."""
     
     def start(self):
         for file_name in search_jupyter_paths():
-            print(file_name)
+
+            print(resolve_filepath(file_name))
 
 class JupyterConfigSearchApp(JupyterApp):
     name = "jupyter-config-search"
@@ -64,7 +66,7 @@ def print_indexed_content(file_name='', search_term=''):
                 if search_term in text:
                     line_numbers_match.append((line_no,text.strip()))
             output = ["{}: {}".format(x,y) for x,y in line_numbers_match]
-            print(file_name + "\n" + "\n".join(output),"\n")
+            print(resolve_filepath(file_name) + "\n" + "\n".join(output),"\n")
 
 
 main = launch_new_instance = JupyterConfigApp.launch_instance
